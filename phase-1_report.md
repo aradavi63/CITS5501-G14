@@ -397,7 +397,8 @@ For very small changes, such as minor documentation corrections, the review may 
 
 ### Task Tracking
 
-**GitHub Projects Board:** https://github.com/users/aradavi63/projects/3
+**GitHub Projects Board:**
+**https://github.com/users/aradavi63/projects/3**
 
 
 ---
