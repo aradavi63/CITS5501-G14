@@ -89,16 +89,60 @@ Our general merge process will be:
 5. Any identified issues are corrected.
 6. The approved pull request is merged into `main`.
 
-### Resource Risk Management
+## Resource Risk Management
 
-| Category    | Risk                                                                                      | Impact | Mitigation Strategy                                                                                                                                                                                                                          |
-| ----------- | ----------------------------------------------------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Resource    | Team member illness, missed deadlines, or conflicting schedules                           | High   | Important tasks will not depend entirely on one person. More than one member should have enough context to continue important work if necessary. Weekly meetings will also be used to review workload and redistribute tasks where required. |
-| Operational | GitHub outage, local data loss, or synchronisation problems                               | Medium | Members will maintain local copies of the repository and commit and push changes regularly. Important project work will remain under version control so that previous versions can be recovered.                                             |
-| Technical   | Security or input-validation problems                                                     | High   | We will follow secure coding practices, validate external input where appropriate, and use Java-compatible static-analysis tools such as Checkstyle and SpotBugs to identify potential quality issues.                                       |
-| Technical   | Missing dependencies, incompatible configurations, or development-environment differences | Medium | Maven will be used to manage project dependencies and builds. The team will use a consistent Java version and test the build process early to identify configuration problems.                                                               |
-| Operational | Merge conflicts or inconsistent code quality                                              | High   | New work will normally be completed on separate feature branches. Pull requests will be reviewed before merging, and automated tests and quality checks should pass before changes are added to `main`.                                      |
+### 1. Resource Risk
 
+**Risk:** Team member illness, missed deadlines, or conflicting schedules
+
+**Impact:** High
+
+**Mitigation Strategy:**  
+Important tasks will not depend entirely on one person. More than one member should have enough context to continue important work if necessary. Weekly meetings will also be used to review workload and redistribute tasks where required.
+
+---
+
+### 2. Operational Risk
+
+**Risk:** GitHub outage, local data loss, or synchronisation problems
+
+**Impact:** Medium
+
+**Mitigation Strategy:**  
+Members will maintain local copies of the repository and commit and push changes regularly. Important project work will remain under version control so that previous versions can be recovered.
+
+---
+
+### 3. Technical Risk
+
+**Risk:** Security or input-validation problems
+
+**Impact:** High
+
+**Mitigation Strategy:**  
+We will follow secure coding practices, validate external input where appropriate, and use Java-compatible static-analysis tools such as Checkstyle and SpotBugs to identify potential quality issues.
+
+---
+
+### 4. Technical Risk
+
+**Risk:** Missing dependencies, incompatible configurations, or development-environment differences
+
+**Impact:** Medium
+
+**Mitigation Strategy:**  
+Maven will be used to manage project dependencies and builds. The team will use a consistent Java version and test the build process early to identify configuration problems.
+
+---
+
+### 5. Operational Risk
+
+**Risk:** Merge conflicts or inconsistent code quality
+
+**Impact:** High
+
+**Mitigation Strategy:**  
+New work will normally be completed on separate feature branches. Pull requests will be reviewed before merging, and automated tests and quality checks should pass before changes are added to main.
 ---
 
 # Task 2: Group Git Repository and Task Tracking
