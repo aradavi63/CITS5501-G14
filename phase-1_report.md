@@ -4,14 +4,15 @@
 
 ### Group Members
 
-| Student ID | Student Name        | GitHub ID           |
-| ---------- | ------------------- | ------------------- |
-| 23904324   | Adam Ahmadavi       |    **aradavi63**    |
-| 24231774   | Nikhil Chadha       | **nikhilchadha28**  |
-| 25039111   | Nandhukrishna       | **[ADD GITHUB ID]** |
-               Gujjalapudi         
-| 24771683   | Cong Lu             | **cong53077-spec**  |
-| 24535749   | Syeda Mehnaz Monsur |    **Mehnaz-M**     |
+## Group Members
+
+| Student ID | Student Name | GitHub ID |
+|---|---|---|
+| 23904324 | Adam Ahmadavi | **aradavi63** |
+| 24231774 | Nikhil Chadha | **nikhilchadha28** |
+| 25039111 | Nandhukrishna Gujjalapudi | **nandhugnk** |
+| 24771683 | Cong Lu | **cong53077-spec** |
+| 24535749 | Syeda Mehnaz Monsur | **Mehnaz-M** |
 
 **Group Number:** 14
 **Group Name:** Scrapers
