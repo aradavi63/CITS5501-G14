@@ -368,7 +368,7 @@ For very small changes, such as minor documentation corrections, the review may 
 
 **GitHub Projects Board:** https://github.com/users/aradavi63/projects/3
 
-<img width="954" height="337" alt="image" src="https://github.com/user-attachments/assets/6f4886fa-2c52-4518-8ab2-13284bbfa184" />
+<img width="956" height="380" alt="image" src="https://github.com/user-attachments/assets/c8544f08-b9fe-4d10-9820-52244cd869a8" />
 
 ---
 
