@@ -29,7 +29,7 @@
 ### Team Communication and Responsibilities
 
 **Meetings:**
-The group will have weekly face-to-face meetings on campus for approximately 30–60 minutes. These meetings will allow us to discuss what each member has completed, identify any problems, and decide what needs to be completed during the following week to progress the project.
+The group will have weekly face-to-face meetings on campus for approximately 30–60 minutes. These meetings will allow us to discuss what each member has completed, identify any issues, and decide what needs to be done the following week to advance the project.
 
 **Online Correspondence:**
 The team will use Microsoft Teams for online communication, as all members already have access through their student accounts. Teams will be used for instant messaging, sharing updates, and video calls when a member is unable to attend a face-to-face meeting.
@@ -43,7 +43,7 @@ GitHub Issues and GitHub Projects will be used to assign tasks and deadlines to 
 We will use GitHub to host the project repository. All team members are comfortable with the basic features of Git and GitHub, including creating branches, committing changes, opening pull requests, reviewing code, and merging branches. Using a platform the team already understands will allow us to focus more time on developing and testing the project.
 
 **Member Contributions:**
-Individual contributions will be visible through GitHub's commit history, pull requests, and Issues. Tasks will be assigned through GitHub Issues so that responsibilities are clear.
+Individual contributions will be visible through GitHub's commit history, pull requests, and Issues. Tasks will be assigned via GitHub Issues to ensure responsibilities are clear.
 
 Each member will work on a separate feature branch when making significant changes. This should reduce unnecessary conflicts between members. If a merge conflict occurs, the members involved will resolve the conflicting changes and verify that the merged version still works correctly before it is added to the main branch.
 
@@ -142,9 +142,6 @@ Our general merge process will be:
 A private GitHub repository has been created for the project. All group members will have access to the repository and will be able to contribute through branches, commits, Issues, and pull requests.
 
 **Repository:** **https://github.com/aradavi63/CITS5501-G14**
-
-**Repository Screenshot:**
-<img width="938" height="458" alt="image" src="https://github.com/user-attachments/assets/f6552e26-67ba-4ebe-b99f-dbe4493e3448" />
 
 Task allocation and completion will be tracked using GitHub Issues and GitHub Projects.
 
@@ -346,7 +343,7 @@ We plan to use **GitHub Actions** for continuous integration so that our test su
 
 This will allow us to identify problems throughout development rather than waiting until immediately before submission. If a test or required check fails, we can investigate whether the problem is in the implementation or the test itself before the changes are merged.
 
-**Previous CI experience:** **[CONFIRM WITH GROUP AND WRITE WHETHER ANY MEMBERS HAVE USED GITHUB ACTIONS/CI BEFORE.]**
+None of our group members have significant previous experience with continuous integration or GitHub Actions. However, we plan to learn and set it up as part of the project.
 
 ---
 
@@ -397,14 +394,11 @@ For very small changes, such as minor documentation corrections, the review may 
 **Private GitHub Repository:**
 **https://github.com/aradavi63/CITS5501-G14**
 
-**Repository Screenshot:**
-<img width="938" height="458" alt="image" src="https://github.com/user-attachments/assets/f6552e26-67ba-4ebe-b99f-dbe4493e3448" />
 
 ### Task Tracking
 
 **GitHub Projects Board:** https://github.com/users/aradavi63/projects/3
 
-<img width="956" height="380" alt="image" src="https://github.com/user-attachments/assets/c8544f08-b9fe-4d10-9820-52244cd869a8" />
 
 ---
 
