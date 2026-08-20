@@ -26,7 +26,7 @@ SHELL := /bin/bash
 
 .DELETE_ON_ERROR:
 
-REPORT := phase-1-report-group-XXX
+REPORT := REPORT := phase-1_report
 
 PANDOC_VERSION := 3.10.1
 TYPST_VERSION  := 0.15.0
