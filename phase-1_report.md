@@ -1,8 +1,6 @@
 # CITS5501 Project 2026 — Phase 1 Report
 
-## Group 14 — Scrapers
-
-### Group Members
+## Group Number — 14 | Group Name — Scrapers
 
 ## Group Members
 
@@ -14,9 +12,6 @@
 | 24771683 | Cong Lu | **cong53077-spec** |
 | 24535749 | Syeda Mehnaz Monsur | **Mehnaz-M** |
 
-**Group Number:** 14
-
-**Group Name:** Scrapers
 
 **GitHub Repository:** **https://github.com/aradavi63/CITS5501-G14**
 
