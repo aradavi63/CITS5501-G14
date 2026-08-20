@@ -29,7 +29,7 @@
 ### Team Communication and Responsibilities
 
 **Meetings:**
-The group will have weekly face-to-face meetings on campus for approximately 30–60 minutes. These meetings will allow us to discuss what each member has completed, identify any problems, and decide what needs to be completed during the following week.
+The group will have weekly face-to-face meetings on campus for approximately 30–60 minutes. These meetings will allow us to discuss what each member has completed, identify any problems, and decide what needs to be completed during the following week to progress the project.
 
 **Online Correspondence:**
 The team will use Microsoft Teams for online communication, as all members already have access through their student accounts. Teams will be used for instant messaging, sharing updates, and video calls when a member is unable to attend a face-to-face meeting.
@@ -364,8 +364,11 @@ For very small changes, such as minor documentation corrections, the review may 
 **Repository Screenshot:**
 <img width="938" height="458" alt="image" src="https://github.com/user-attachments/assets/f6552e26-67ba-4ebe-b99f-dbe4493e3448" />
 
-**Task Tracking Screenshot:https://github.com/users/aradavi63/projects/3**
-<img width="956" height="300" alt="image" src="https://github.com/user-attachments/assets/f452ba1c-a891-410c-93ea-55b79df9baa5" />
+### Task Tracking
+
+**GitHub Projects Board:** https://github.com/users/aradavi63/projects/3
+
+<img width="954" height="337" alt="image" src="https://github.com/user-attachments/assets/6f4886fa-2c52-4518-8ab2-13284bbfa184" />
 
 ---
 
