@@ -282,9 +282,9 @@ SpotBugs will help identify common programming mistakes and potential defects th
 
 We may also consider PMD if additional static-analysis checks are useful later in development, but our initial focus will be on setting up and consistently using Checkstyle and SpotBugs.
 
-### 13. Suppose a group member's contribution doesn't pass your linting or type checking checks. What will be the consequences?
+### 13. Suppose a group member's contribution doesn't pass your linting or type-checking checks. What will be the consequences?
 
-Merges will be blocked until the contribution passes the required checks. If linting, compilation, static-analysis, or other required quality checks fail, the contributor will need to investigate and correct the problems before the code can be merged into the `main` branch.
+Merges will be blocked until the contribution passes the required checks. If linting, compilation, static analysis, or other required quality checks fail, the contributor will need to investigate and correct the problems before the code can be merged into the `main` branch.
 
 This will make the checks part of our quality process rather than treating them only as advisory warnings.
 
@@ -362,8 +362,8 @@ For very small changes, such as minor documentation corrections, the review may 
 **Repository Screenshot:**
 <img width="938" height="458" alt="image" src="https://github.com/user-attachments/assets/f6552e26-67ba-4ebe-b99f-dbe4493e3448" />
 
-**Task Tracking Screenshot:**
-**[OPTIONAL: ADD SCREENSHOT OF GITHUB PROJECTS / ISSUES BOARD HERE]**
+**Task Tracking Screenshot:https://github.com/users/aradavi63/projects/3**
+<img width="956" height="300" alt="image" src="https://github.com/user-attachments/assets/f452ba1c-a891-410c-93ea-55b79df9baa5" />
 
 ---
 
