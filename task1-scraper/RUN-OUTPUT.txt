@@ -1,4 +1,4 @@
-Distinct candidate URLs: 216
+﻿Distinct candidate URLs: 216
 
 Policy URL: https://uwa-policy.cits5501.arranstewart.io/policy/-/media/project/uwa/uwa/policy-library/policy/code-of-conduct/integrity/policy-framework/policy-governance-framework.pdf
 Final URL: https://uwa-policy.cits5501.arranstewart.io/policy/-/media/project/uwa/uwa/policy-library/policy/code-of-conduct/integrity/policy-framework/policy-governance-framework.pdf
@@ -34,18 +34,10 @@ HTTP transfer: SUCCESS
 
 Policy URL: https://uwa-policy.cits5501.arranstewart.io/policy/-/media/project/uwa/uwa/policy-library/policy/code-of-conduct/up26-2-code-of-conduct---annexure-c.pdf
 Final URL: https://uwa-policy.cits5501.arranstewart.io/policy/-/media/project/uwa/uwa/policy-library/policy/code-of-conduct/up26-2-code-of-conduct---annexure-c.pdf
-HTTP status: 429
-Content-Type: text/html; charset=utf-8
-Downloaded bytes: 118
-Initial bytes (hex): 3c21646f63747970
-HTTP transfer: FAILED
-
-Policy URL: https://uwa-policy.cits5501.arranstewart.io/policy/-/media/project/uwa/uwa/policy-library/policy/code-of-conduct/integrity/delegations/delegations-framework-policy.doc
-Final URL: https://uwa-policy.cits5501.arranstewart.io/policy/-/media/project/uwa/uwa/policy-library/policy/code-of-conduct/integrity/delegations/delegations-framework-policy.doc
 HTTP status: 200
-Content-Type: application/msword
-Downloaded bytes: 256512
-Initial bytes (hex): d0cf11e0a1b11ae1
+Content-Type: application/pdf
+Downloaded bytes: 136890
+Initial bytes (hex): 255044462d312e36
 HTTP transfer: SUCCESS
 
-Summary: 5 distinct successful HTTP transfers; 7/20 requests
+Summary: 5 distinct successful HTTP transfers; 6/20 requests
