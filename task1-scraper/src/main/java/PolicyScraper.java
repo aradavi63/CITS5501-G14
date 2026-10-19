@@ -54,7 +54,7 @@ public class PolicyScraper {
         for (URI url : candidates) {
             if (downloaded >= TARGET_DOCUMENTS || requests >= MAX_REQUESTS) break;
             // A short pause avoids sending a burst of document requests.
-            Thread.sleep(500);
+            Thread.sleep(1000);
             System.out.println("\nPolicy URL: " + url);
             try {
                 HttpResponse<byte[]> response = fetch(url, index);
