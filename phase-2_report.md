@@ -21,7 +21,7 @@
 
 ## 1.1 What the Prototype Does
 
-The prototype is implemented in Java using the built-in HttpClient library to send HTTP requests and the jsoup library to parse HTML. Its main purpose is to identify and attempt to download a small selection of policy documents from the supplied UWA policy website. Although our Phase 1 plan was to use Maven, we used a plain javac build with the jsoup jar included in the lib/ folder for this minimal prototype, to keep the setup simple.
+The prototype is implemented in Java using the built-in HttpClient library to send HTTP requests and the jsoup library to parse HTML. Its main purpose is to identify and attempt to download a small selection of policy documents from the supplied UWA policy website. Although our Phase 1 plan was to use Maven, we used a plain javac build with the jsoup jar included in the lib/ folder for this minimal prototype to keep the setup simple.
 
 The program follows four main steps.
 
