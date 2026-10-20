@@ -49,7 +49,7 @@ After downloading the index page, we used jsoup to find all the links on it. Som
 
 We then only kept links that were on the same website and pointed to a document. To decide what counted as a document, we checked the file extension. The prototype accepts PDF, Word, RTF, Excel, PowerPoint and OpenDocument files.
 
-Links to other websites were ignored, along with things like images and scripts. If the same document appeared more than once, it was only kept once. We also kept the scraper simple. It doesn’t visit any other pages on the site or follow links inside the documents it downloads.
+Links to other websites were ignored, along with things like images and scripts. If the same document appeared more than once, it was only kept once. We also kept the scraper simple. It doesn't visit any other pages on the site or follow links inside the documents it downloads.
 
 </div>
 
@@ -66,7 +66,7 @@ To reduce unnecessary requests to the server, the prototype:
 - Processes document links in the order they appear on the index page.
 - Keeps downloaded content in memory temporarily rather than saving files permanently.
 
-A download is reported as an HTTP success when the server returns status 200 and the response isn’t empty. This indicates that the request completed successfully at the HTTP level but does not necessarily mean that the downloaded content is a valid or readable policy document.
+A download is reported as an HTTP success when the server returns status 200 and the response isn't empty. This indicates that the request completed successfully at the HTTP level but does not necessarily mean that the downloaded content is a valid or readable policy document.
 
 </div>
 
@@ -194,7 +194,7 @@ We assume that the index page uses UTF-8 encoding, allowing its HTML content to 
 
 <div align="justify">
 
-The scraper decides whether a link is a document by looking at the end of the URL. This means some documents could be missed if their links don’t end in a normal file extension. It can also go the other way. A link ending in .pdf might be picked up even if the server actually sends back an error page instead of a real PDF.
+The scraper decides whether a link is a document by looking at the end of the URL. This means some documents could be missed if their links don't end in a normal file extension. It can also go the other way. A link ending in .pdf might be picked up even if the server actually sends back an error page instead of a real PDF.
 
 </div>
 
@@ -202,7 +202,7 @@ The scraper decides whether a link is a document by looking at the end of the UR
 
 <div align="justify">
 
-If the server returns HTTP 200 with a non-empty response, the prototype counts the download as a success. It doesn’t check whether the file is actually a proper document. The program does print the Content-Type and the first few bytes of the file, but it doesn’t use them to check anything. So a broken PDF, or a response with the wrong label, could still show up as a success.
+If the server returns HTTP 200 with a non-empty response, the prototype counts the download as a success. It doesn't check whether the file is actually a proper document. The program does print the Content-Type and the first few bytes of the file, but it doesn't use them to check anything. So a broken PDF, or a response with the wrong label, could still show up as a success.
 
 </div>
 
@@ -210,7 +210,7 @@ If the server returns HTTP 200 with a non-empty response, the prototype counts t
 
 <div align="justify">
 
-The scraper goes through the document links in the same order they appear on the index page. In the run we recorded, the first five successful downloads all happened to be PDFs. So even though the filter accepts Word, RTF and other formats, the results don’t actually show that those formats download properly.
+The scraper goes through the document links in the same order they appear on the index page. In the run we recorded, the first five successful downloads all happened to be PDFs. So even though the filter accepts Word, RTF and other formats, the results don't actually show that those formats download properly.
 
 </div>
 
@@ -218,7 +218,7 @@ The scraper goes through the document links in the same order they appear on the
 
 <div align="justify">
 
-If a document fails to download, the prototype doesn’t try again, and it has no way of dealing with slow or offline servers. If the index page can’t be loaded at all, the program just stops. Section 2 describes tests for how a production scraper should handle these cases.
+If a document fails to download, the prototype doesn't try again, and it has no way of dealing with slow or offline servers. If the index page can't be loaded at all, the program just stops. Section 2 describes tests for how a production scraper should handle these cases.
 
 </div>
 
@@ -240,7 +240,7 @@ These limitations reflect the deliberately restricted scope of Task 1. A product
 
 <div align="justify">
 
-In this task, we design a set of tests for a full production level version of our scraper. Because a scraper depends on someone else’s website, it has to cope with unexpected responses and failures, and it should never report misleading results when something goes wrong.
+In this task, we design a set of tests for a full production level version of our scraper. Because a scraper depends on someone else's website, it has to cope with unexpected responses and failures, and it should never report misleading results when something goes wrong.
 
 In Phase 1, our group identified website structure changes, connection failures, HTTP error responses, malformed documents and rate limiting as likely risks. The test cases below address these risks and the failure scenarios specified in the project brief.
 
@@ -252,7 +252,7 @@ We have designed ten test cases covering both recoverable and non-recoverable fa
 
 <div align="justify">
 
-A good scraper doesn’t need to fix every problem it runs into. What matters is that it notices when something goes wrong, reports it clearly, and never says a download worked when it didn’t. Below is what we think a reasonable scraper should do in each of the five scenarios from the brief.
+A good scraper doesn't need to fix every problem it runs into. What matters is that it notices when something goes wrong, reports it clearly, and never says a download worked when it didn't. Below is what we think a reasonable scraper should do in each of the five scenarios from the brief.
 
 </div>
 
@@ -338,18 +338,105 @@ The following ten test cases use the Arrange–Act–Assert approach. Each test 
 
 </div>
 
-| Test ID | Scenario | Arrange (Test Setup) | Act | Assert (Expected Result) |
-|---|---|---|---|---|
-| T001 | S1 – Website structure changes | Create an HTML fixture where valid policy document links are moved to a different HTML container but remain accessible through standard anchor elements. | Run the scraper against the modified page. | All expected document URLs should be discovered despite the structural change. No unrelated links should be included. |
-| T002 | S1 – Website structure changes | Provide an HTML page containing navigation links, images and other webpage resources but no downloadable policy documents. | Run the document discovery process. | The scraper should return an empty collection of document candidates and report that no matching policy links were found. It should not download unrelated resources. |
-| T003 | S2 – Truncated HTML | Create an HTML fixture containing one complete, valid PDF link followed by a truncated anchor element with an incomplete href value that does not form a valid document URL. | Run the scraper against the incomplete HTML page. | The scraper should identify the complete PDF link, ignore the incomplete anchor and finish without an unhandled exception or invalid document URL. |
-| T004 | S2 – Truncated HTML | Provide an HTML response that ends before any complete policy document link appears. | Run the document discovery process. | The scraper should terminate safely and report that no usable policy links were discovered. No successful document download should be reported. |
-| T005 | S3 – Timeout (short) | Configure a controlled HTTP server to delay the first document request beyond the configured timeout. Return HTTP 200 with a valid PDF on the second request. | Attempt to download the document. | The scraper should detect the timeout, retry and successfully retrieve the valid PDF on the second attempt. Exactly two attempts should be recorded. |
-| T006 | S3 – Timeout (long) | Configure a controlled HTTP server to delay every document request beyond the configured timeout. | Attempt to download the document. | The scraper should stop after three total attempts, report a timeout failure and avoid reporting a successful download. |
-| T007 | S4 – HTTP 4xx errors | Configure two document URLs to return HTTP 403 (Forbidden) and HTTP 404 (Not Found), respectively. | Request both document URLs. | The scraper should record the corresponding status codes, reject both responses and avoid unnecessary retries. Each URL should be requested only once. |
-| T008 | S4 – HTTP 5xx errors | Configure a controlled HTTP server to return HTTP 503 for the first two requests and HTTP 200 with a valid PDF on the third attempt. | Attempt to download the document. | The scraper should retry within the configured limit and successfully retrieve the PDF on the third attempt. Exactly three attempts should be recorded. |
-| T009 | S5 – HTML instead of PDF | Configure a .pdf URL to return HTTP 200 with an HTML error page and Content-Type: text/html. | Attempt to download the file. | The scraper should reject the response because its Content-Type is text/html and its initial bytes do not match the expected %PDF- signature. It should report a document-type validation failure. |
-| T010 | S5 – Corrupted PDF | Provide a PDF response beginning with a valid %PDF- header but missing essential PDF structures due to truncation. | Download and validate the document. | The scraper should identify the corrupted PDF, report a validation failure and avoid treating the file as a successful document download. |
+### T001 – Website Structure Changes
+
+| Field | Description |
+|---|---|
+| Test ID | T001 |
+| Scenario | S1 – Website structure changes |
+| Arrange (Test Setup) | Create an HTML fixture where valid policy document links are moved to a different HTML container but remain accessible through standard anchor elements. |
+| Act | Run the scraper against the modified page. |
+| Assert (Expected Result) | All expected document URLs should be discovered despite the structural change. No unrelated links should be included. |
+
+### T002 – No Policy Document Links
+
+| Field | Description |
+|---|---|
+| Test ID | T002 |
+| Scenario | S1 – Website structure changes |
+| Arrange (Test Setup) | Provide an HTML page containing navigation links, images and other webpage resources but no downloadable policy documents. |
+| Act | Run the document discovery process. |
+| Assert (Expected Result) | The scraper should return an empty collection of document candidates and report that no matching policy links were found. It should not download unrelated resources. |
+
+### T003 – Partially Truncated HTML
+
+| Field | Description |
+|---|---|
+| Test ID | T003 |
+| Scenario | S2 – Truncated HTML |
+| Arrange (Test Setup) | Create an HTML fixture containing one complete, valid PDF link followed by a truncated anchor element with an incomplete href value that does not form a valid document URL. |
+| Act | Run the scraper against the incomplete HTML page. |
+| Assert (Expected Result) | The scraper should identify the complete PDF link, ignore the incomplete anchor and finish without an unhandled exception or invalid document URL. |
+
+### T004 – Truncated HTML Without Valid Links
+
+| Field | Description |
+|---|---|
+| Test ID | T004 |
+| Scenario | S2 – Truncated HTML |
+| Arrange (Test Setup) | Provide an HTML response that ends before any complete policy document link appears. |
+| Act | Run the document discovery process. |
+| Assert (Expected Result) | The scraper should terminate safely and report that no usable policy links were discovered. No successful document download should be reported. |
+
+### T005 – Temporary Timeout
+
+| Field | Description |
+|---|---|
+| Test ID | T005 |
+| Scenario | S3 – Timeout (short) |
+| Arrange (Test Setup) | Configure a controlled HTTP server to delay the first document request beyond the configured timeout. Return HTTP 200 with a valid PDF on the second request. |
+| Act | Attempt to download the document. |
+| Assert (Expected Result) | The scraper should detect the timeout, retry and successfully retrieve the valid PDF on the second attempt. Exactly two attempts should be recorded. |
+
+### T006 – Persistent Timeout
+
+| Field | Description |
+|---|---|
+| Test ID | T006 |
+| Scenario | S3 – Timeout (long) |
+| Arrange (Test Setup) | Configure a controlled HTTP server to delay every document request beyond the configured timeout. |
+| Act | Attempt to download the document. |
+| Assert (Expected Result) | The scraper should stop after three total attempts, report a timeout failure and avoid reporting a successful download. |
+
+### T007 – HTTP 4xx Errors
+
+| Field | Description |
+|---|---|
+| Test ID | T007 |
+| Scenario | S4 – HTTP 4xx errors |
+| Arrange (Test Setup) | Configure two document URLs to return HTTP 403 (Forbidden) and HTTP 404 (Not Found), respectively. |
+| Act | Request both document URLs. |
+| Assert (Expected Result) | The scraper should record the corresponding status codes, reject both responses and avoid unnecessary retries. Each URL should be requested only once. |
+
+### T008 – HTTP 5xx Errors
+
+| Field | Description |
+|---|---|
+| Test ID | T008 |
+| Scenario | S4 – HTTP 5xx errors |
+| Arrange (Test Setup) | Configure a controlled HTTP server to return HTTP 503 for the first two requests and HTTP 200 with a valid PDF on the third attempt. |
+| Act | Attempt to download the document. |
+| Assert (Expected Result) | The scraper should retry within the configured limit and successfully retrieve the PDF on the third attempt. Exactly three attempts should be recorded. |
+
+### T009 – HTML Returned Instead of PDF
+
+| Field | Description |
+|---|---|
+| Test ID | T009 |
+| Scenario | S5 – HTML instead of PDF |
+| Arrange (Test Setup) | Configure a .pdf URL to return HTTP 200 with an HTML error page and Content-Type: text/html. |
+| Act | Attempt to download the file. |
+| Assert (Expected Result) | The scraper should reject the response because its Content-Type is text/html and its initial bytes do not match the expected %PDF- signature. It should report a document-type validation failure. |
+
+### T010 – Corrupted PDF
+
+| Field | Description |
+|---|---|
+| Test ID | T010 |
+| Scenario | S5 – Corrupted PDF |
+| Arrange (Test Setup) | Provide a PDF response beginning with a valid %PDF- header but missing essential PDF structures due to truncation. |
+| Act | Download and validate the document. |
+| Assert (Expected Result) | The scraper should identify the corrupted PDF, report a validation failure and avoid treating the file as a successful document download. |
 
 ## 2.4 Testing Approach
 
@@ -398,11 +485,11 @@ Using controlled fixtures and test doubles would allow the team to reproduce the
 
 # 3. Task 3 – Fixtures and Test Doubles
 
-### 1. What kind of fixtures would you use as a “source of truth” for whether your scraper is working correctly?
+### 1. What kind of fixtures would you use as a "source of truth" for whether your scraper is working correctly?
 
 <div align="justify">
 
-Test fixtures are prepared files we use to test our web scraper in a controlled environment. They can work as a source of truth when fixture contains known information or have expected results which we can compare with scraper’s actual output.
+Test fixtures are prepared files we use to test our web scraper in a controlled environment. They can work as a source of truth when fixture contains known information or have expected results which we can compare with scraper's actual output.
 
 For our scraper we can prepare HTML file containing known numbers of policy documents links, or a PDF file to test how scraper handles both valid and corrupted files. As we know what the fixtures contains, we can easily determine our output is correct or not. The known expected result acts as our test oracle.
 
@@ -418,7 +505,7 @@ Rate limiting is when a website restricts the number of requests that can be sen
 
 To test whether the target university policy website has rate limits or not we used curl to send one HEAD request. The website returned HTTP/1.1 200 OK, along with X-Ratelimit-Limit: 3, X-Ratelimit-Remaining: 2, and Retry-After: 10.
 
-The headers show that the site allows three requests in a short period of time, and we hit this limit ourselves. When our prototype waited only half a second between downloads, the site blocked the fifth document with an HTTP 429 “Too Many Requests” response. This can be seen in RUN-OUTPUT-0.5s.txt. After we changed the wait to one second, all six requests went through without being blocked. We didn’t test exactly how long the site makes you wait before the limit resets.
+The headers show that the site allows three requests in a short period of time, and we hit this limit ourselves. When our prototype waited only half a second between downloads, the site blocked the fifth document with an HTTP 429 "Too Many Requests" response. This can be seen in RUN-OUTPUT-0.5s.txt. After we changed the wait to one second, all six requests went through without being blocked. We didn't test exactly how long the site makes you wait before the limit resets.
 
 To test our scraper safely we can use a fake local server (test double) to simulate HTTP 429 responses after certain requests. This will allow us to test rate limit and waits before retrying correctly without putting extra load on real website.
 
@@ -430,7 +517,7 @@ To test our scraper safely we can use a fake local server (test double) to simul
 
 Test doubles can be used to simulate timeouts, interrupted downloads, connection failures, or very slow responses during testing a scraper downloading policy documents.
 
-For example, a fake local server can deliberately take longer to respond than the scraper’s timeout or can interrupt the internet connection during the PDF download or tries to connect to wrong port.
+For example, a fake local server can deliberately take longer to respond than the scraper's timeout or can interrupt the internet connection during the PDF download or tries to connect to wrong port.
 
 Tools we can use in Java are Java HTTP Server to create a fake local HTTP server, Mockito to create mock objects to simulate behaviours and WireMock to simulate HTTP responses, delays, and failures.
 
@@ -460,28 +547,89 @@ The same scenario is difficult or undesirable to reproduce against live site bec
 
 <div align="justify">
 
-These are tests that challenge assumptions about how document links, redirects, downloads and server responses should behave, as if we were testing another group’s scraper.
+These are tests that challenge assumptions about how document links, redirects, downloads and server responses should behave, as if we were testing another group's scraper.
 
 The ideas are based on the risks identified in Phase 1, the assumptions documented in Task 1, and the implementation of our Java prototype. For example, the prototype identifies documents using file extensions, compares final URLs to determine distinctness, assumes UTF-8 encoding and temporarily stores complete response bodies in memory.
 
-The following table is a list of test designs, where each test would use a controlled local server with predefined content and expected outcomes.
+The following tables present the adversarial test designs. Each test uses a controlled local server with predefined content and expected outcomes.
 
 </div>
 
-| ID | Assumption being challenged | Input artifact and testing method | Failure and how it would be detected |
-|---|---|---|---|
-| ADV001 – Relative and unusual URLs | Document links are simple absolute URLs with lowercase extensions and no query parameters or encoded characters. | Serve an index at /policy/index.html containing docs/POLICY.PDF?version=2, ../docs/leave%20policy.docx and /docs/c.rtf. Provide valid documents at the correctly resolved locations. Run the scraper against this index and record its requests. | Failure: The scraper misses a document or requests the wrong URL. Correct: It retrieves all three documents using the expected paths and preserves query parameters. Detection: Compare the server’s request log and scraper output with the predefined URLs. |
-| ADV002 – Duplicate documents after redirects | Different final URL strings always represent distinct documents. | Create five document links that redirect to /same.pdf#0 through /same.pdf#4. All destinations return the same resource. Run the scraper and compare its reported distinct-document count with the fixture’s expected count. | Failure: The scraper counts the same document more than once because the URL fragments differ. Correct: It reports one distinct document. Detection: Compare its reported count with the server log, which shows that the redirects lead to the same resource. |
-| ADV003 – Continuously changing redirects | Every endless redirect sequence eventually repeats an identical URL and can therefore be detected using a visited-URL set. | Configure /a.pdf to redirect to /a.pdf?step=1, then ?step=2, continuing without repeating a URL. Set a total budget of 20 HTTP requests, including the index request. Run the scraper and count requests. | Failure: The scraper exceeds 20 requests, keeps running or incorrectly reports a successful download. Correct: It stops within the request limit and reports that no document was downloaded. Detection: Count requests in the server log and check the scraper’s final output and termination. |
-| ADV004 – Redirect outside the permitted origin | A document link on the permitted website remains within that website after redirection. | Start two local servers on different ports. Server A hosts the index and a document endpoint that redirects to server B. Configure A as the only permitted origin, run the scraper and inspect both request logs. | Failure: The scraper sends a request to server B. Correct: It refuses the redirect and reports that the download was unsuccessful. Detection: Check that server B’s request log is empty and that the scraper explains why it stopped. |
-| ADV005 – Large download without a size header | Documents are small enough to load into memory, or their size can always be checked using Content-Length. | Stream a known valid 20 MiB PDF without a Content-Length header. Configure the production scraper with a 5 MiB download limit. Run the download and use a byte counter in the receiving stream to measure consumption. | Failure: The scraper downloads the entire oversized file, accepts it or crashes. Correct: It stops near the configured 5 MiB limit and reports a size-limit failure. Detection: Measure the bytes received and check that the document is not counted as successful. |
-| ADV006 – Response body stalls after headers arrive | A request timeout necessarily limits the time required to receive the complete document. | Immediately return HTTP 200 headers declaring the correct body length, wait 23 seconds, then send the body. Configure a 20-second whole-transfer deadline with a two-second scheduling tolerance. Measure the document request’s duration. | Failure: The scraper continues beyond the deadline and tolerance or accepts the late document. Correct: It stops within 22 seconds and reports a timeout. Detection: Measure the document request’s duration and check the reported outcome. |
-| ADV007 – Rate limiting with a waiting instruction | An unsuccessful request can be retried immediately, or a fixed one-second pause always satisfies the server’s restrictions. | Return HTTP 429 with Retry-After: 2 for the first document request. Permit a successful response after two seconds. Before running the test, record whether the scraper is configured to stop or retry, with a maximum of three attempts. Capture request timestamps and outcomes. | Failure: The scraper retries too early, exceeds three attempts or counts the 429 response as a successful download. Correct: It clearly reports the rate limit and stops, or waits at least two seconds before retrying within the attempt limit. Detection: Check request timestamps, attempt counts and scraper output against the selected policy. |
-| ADV008 – Non-UTF-8 index encoding | Every index page uses UTF-8, so decoding its bytes as UTF-8 preserves document links. | Serve a Windows-1252 index with Content-Type: text/html; charset=windows-1252. Include a literal café.pdf link and provide the intended document at /caf%C3%A9.pdf. Run the scraper against the index at the origin root. | Failure: The scraper corrupts the URL, requests the wrong path or silently misses the document. Correct: It retrieves the intended document or clearly reports that the encoding is unsupported. Detection: Compare requested paths with the expected URL and check the scraper’s diagnostics. |
+### ADV001 – Relative and Unusual URLs
+
+| Field | Description |
+|---|---|
+| Test ID | ADV001 |
+| Assumption being challenged | Document links are simple absolute URLs with lowercase extensions and no query parameters or encoded characters. |
+| Input artifact and testing method | Serve an index at /policy/index.html containing docs/POLICY.PDF?version=2, ../docs/leave%20policy.docx and /docs/c.rtf. Provide valid documents at the correctly resolved locations. Run the scraper against this index and record its requests. |
+| Failure and how it would be detected | Failure: The scraper misses a document or requests the wrong URL. Correct: It retrieves all three documents using the expected paths and preserves query parameters. Detection: Compare the server's request log and scraper output with the predefined URLs. |
+
+### ADV002 – Duplicate Documents After Redirects
+
+| Field | Description |
+|---|---|
+| Test ID | ADV002 |
+| Assumption being challenged | Different final URL strings always represent distinct documents. |
+| Input artifact and testing method | Create five document links that redirect to /same.pdf#0 through /same.pdf#4. All destinations return the same resource. Run the scraper and compare its reported distinct-document count with the fixture's expected count. |
+| Failure and how it would be detected | Failure: The scraper counts the same document more than once because the URL fragments differ. Correct: It reports one distinct document. Detection: Compare its reported count with the server log, which shows that the redirects lead to the same resource. |
+
+### ADV003 – Continuously Changing Redirects
+
+| Field | Description |
+|---|---|
+| Test ID | ADV003 |
+| Assumption being challenged | Every endless redirect sequence eventually repeats an identical URL and can therefore be detected using a visited-URL set. |
+| Input artifact and testing method | Configure /a.pdf to redirect to /a.pdf?step=1, then ?step=2, continuing without repeating a URL. Set a total budget of 20 HTTP requests, including the index request. Run the scraper and count requests. |
+| Failure and how it would be detected | Failure: The scraper exceeds 20 requests, keeps running or incorrectly reports a successful download. Correct: It stops within the request limit and reports that no document was downloaded. Detection: Count requests in the server log and check the scraper's final output and termination. |
+
+### ADV004 – Redirect Outside the Permitted Origin
+
+| Field | Description |
+|---|---|
+| Test ID | ADV004 |
+| Assumption being challenged | A document link on the permitted website remains within that website after redirection. |
+| Input artifact and testing method | Start two local servers on different ports. Server A hosts the index and a document endpoint that redirects to server B. Configure A as the only permitted origin, run the scraper and inspect both request logs. |
+| Failure and how it would be detected | Failure: The scraper sends a request to server B. Correct: It refuses the redirect and reports that the download was unsuccessful. Detection: Check that server B's request log is empty and that the scraper explains why it stopped. |
+
+### ADV005 – Large Download Without a Size Header
+
+| Field | Description |
+|---|---|
+| Test ID | ADV005 |
+| Assumption being challenged | Documents are small enough to load into memory, or their size can always be checked using Content-Length. |
+| Input artifact and testing method | Stream a known valid 20 MiB PDF without a Content-Length header. Configure the production scraper with a 5 MiB download limit. Run the download and use a byte counter in the receiving stream to measure consumption. |
+| Failure and how it would be detected | Failure: The scraper downloads the entire oversized file, accepts it or crashes. Correct: It stops near the configured 5 MiB limit and reports a size-limit failure. Detection: Measure the bytes received and check that the document is not counted as successful. |
+
+### ADV006 – Response Body Stalls After Headers Arrive
+
+| Field | Description |
+|---|---|
+| Test ID | ADV006 |
+| Assumption being challenged | A request timeout necessarily limits the time required to receive the complete document. |
+| Input artifact and testing method | Immediately return HTTP 200 headers declaring the correct body length, wait 23 seconds, then send the body. Configure a 20-second whole-transfer deadline with a two-second scheduling tolerance. Measure the document request's duration. |
+| Failure and how it would be detected | Failure: The scraper continues beyond the deadline and tolerance or accepts the late document. Correct: It stops within 22 seconds and reports a timeout. Detection: Measure the document request's duration and check the reported outcome. |
+
+### ADV007 – Rate Limiting With a Waiting Instruction
+
+| Field | Description |
+|---|---|
+| Test ID | ADV007 |
+| Assumption being challenged | An unsuccessful request can be retried immediately, or a fixed one-second pause always satisfies the server's restrictions. |
+| Input artifact and testing method | Return HTTP 429 with Retry-After: 2 for the first document request. Permit a successful response after two seconds. Before running the test, record whether the scraper is configured to stop or retry, with a maximum of three attempts. Capture request timestamps and outcomes. |
+| Failure and how it would be detected | Failure: The scraper retries too early, exceeds three attempts or counts the 429 response as a successful download. Correct: It clearly reports the rate limit and stops, or waits at least two seconds before retrying within the attempt limit. Detection: Check request timestamps, attempt counts and scraper output against the selected policy. |
+
+### ADV008 – Non-UTF-8 Index Encoding
+
+| Field | Description |
+|---|---|
+| Test ID | ADV008 |
+| Assumption being challenged | Every index page uses UTF-8, so decoding its bytes as UTF-8 preserves document links. |
+| Input artifact and testing method | Serve a Windows-1252 index with Content-Type: text/html; charset=windows-1252. Include a literal café.pdf link and provide the intended document at /caf%C3%A9.pdf. Run the scraper against the index at the origin root. |
+| Failure and how it would be detected | Failure: The scraper corrupts the URL, requests the wrong path or silently misses the document. Correct: It retrieves the intended document or clearly reports that the encoding is unsupported. Detection: Compare requested paths with the expected URL and check the scraper's diagnostics. |
 
 <div align="justify">
 
-Each test would start with a fresh server state and scraper process. We would provide the local index through the scraper’s command-line argument and capture its output alongside server request logs. Assertions would use the predefined document set, request counts, timestamps and measured outcomes rather than relying only on whether the program produced output or exited normally.
+Each test would start with a fresh server state and scraper process. We would provide the local index through the scraper's command-line argument and capture its output alongside server request logs. Assertions would use the predefined document set, request counts, timestamps and measured outcomes rather than relying only on whether the program produced output or exited normally.
 
 The size limit, whole-transfer deadline and retry settings above are proposed configurations for a production scraper. They do not describe features already implemented by the minimal prototype. Some tests may confirm that existing safeguards work correctly; an adversarial test does not need to expose a defect to provide useful evidence.
 
