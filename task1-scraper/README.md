@@ -4,6 +4,8 @@
 JDK 17 or later and Jsoup 1.23.2 (`lib/jsoup-1.23.2.jar`).
 Jsoup official download: https://jsoup.org/download
 
+A plain `javac` build is used for this minimal prototype instead of Maven, to keep setup simple.
+
 ## Compile and run (from this directory)
 Linux/macOS:
 ```sh
