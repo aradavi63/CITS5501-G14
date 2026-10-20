@@ -20,7 +20,7 @@ public class InterruptedDownloadTestDouble {
     public static void main(String[] args)
             throws Exception {
 
-        // Creating fake local HTTP server on port 8000
+        // Creating fake local HTTP server on port 8080
 
         HttpServer server = HttpServer.create(new InetSocketAddress("localhost", 8080), 0);
 
