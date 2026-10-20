@@ -1,0 +1,43 @@
+﻿Distinct candidate URLs: 216
+
+Policy URL: https://uwa-policy.cits5501.arranstewart.io/policy/-/media/project/uwa/uwa/policy-library/policy/code-of-conduct/integrity/policy-framework/policy-governance-framework.pdf
+Final URL: https://uwa-policy.cits5501.arranstewart.io/policy/-/media/project/uwa/uwa/policy-library/policy/code-of-conduct/integrity/policy-framework/policy-governance-framework.pdf
+HTTP status: 200
+Content-Type: application/pdf
+Downloaded bytes: 301201
+Initial bytes (hex): 255044462d312e36
+HTTP transfer: SUCCESS
+
+Policy URL: https://uwa-policy.cits5501.arranstewart.io/policy/-/media/project/uwa/uwa/policy-library/policy/code-of-conduct/up26-2-code-of-conduct.pdf
+Final URL: https://uwa-policy.cits5501.arranstewart.io/policy/-/media/project/uwa/uwa/policy-library/policy/code-of-conduct/up26-2-code-of-conduct.pdf
+HTTP status: 200
+Content-Type: application/pdf
+Downloaded bytes: 163909
+Initial bytes (hex): 255044462d312e36
+HTTP transfer: SUCCESS
+
+Policy URL: https://uwa-policy.cits5501.arranstewart.io/policy/-/media/project/uwa/uwa/policy-library/policy/code-of-conduct/up26-2-code-of-conduct---annexure-a.pdf
+Final URL: https://uwa-policy.cits5501.arranstewart.io/policy/-/media/project/uwa/uwa/policy-library/policy/code-of-conduct/up26-2-code-of-conduct---annexure-a.pdf
+HTTP status: 200
+Content-Type: application/pdf
+Downloaded bytes: 217240
+Initial bytes (hex): 255044462d312e36
+HTTP transfer: SUCCESS
+
+Policy URL: https://uwa-policy.cits5501.arranstewart.io/policy/-/media/project/uwa/uwa/policy-library/policy/code-of-conduct/up26-2-code-of-conduct---annexure-b.pdf
+Final URL: https://uwa-policy.cits5501.arranstewart.io/policy/-/media/project/uwa/uwa/policy-library/policy/code-of-conduct/up26-2-code-of-conduct---annexure-b.pdf
+HTTP status: 200
+Content-Type: application/pdf
+Downloaded bytes: 148249
+Initial bytes (hex): 255044462d312e36
+HTTP transfer: SUCCESS
+
+Policy URL: https://uwa-policy.cits5501.arranstewart.io/policy/-/media/project/uwa/uwa/policy-library/policy/code-of-conduct/up26-2-code-of-conduct---annexure-c.pdf
+Final URL: https://uwa-policy.cits5501.arranstewart.io/policy/-/media/project/uwa/uwa/policy-library/policy/code-of-conduct/up26-2-code-of-conduct---annexure-c.pdf
+HTTP status: 200
+Content-Type: application/pdf
+Downloaded bytes: 136890
+Initial bytes (hex): 255044462d312e36
+HTTP transfer: SUCCESS
+
+Summary: 5 distinct successful HTTP transfers; 6/20 requests
